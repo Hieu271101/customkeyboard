@@ -1,1 +1,13 @@
 
+diff --git a/app/src/main/java/javax/microedition/lcdui/keyboard/KeyMapper.java b/app/src/main/java/javax/microedition/lcdui/keyboard/KeyMapper.java
+index 73f0a34f..51d4e741 100644
+--- a/app/src/main/java/javax/microedition/lcdui/keyboard/KeyMapper.java
++++ b/app/src/main/java/javax/microedition/lcdui/keyboard/KeyMapper.java
+@@ -220,6 +220,7 @@ public class KeyMapper {
+ 		map.append(KeyEvent.KEYCODE_DPAD_LEFT, KEY_LEFT);
+ 		map.append(KeyEvent.KEYCODE_DPAD_RIGHT, KEY_RIGHT);
+ 		map.append(KeyEvent.KEYCODE_ENTER, KEY_FIRE);
++		map.append(KeyEvent.KEYCODE_F1, KEY_SOFT_LEFT);
+ 		map.append(KeyEvent.KEYCODE_DEL, KEY_CLEAR);
+ 		return map;
+ 	}
