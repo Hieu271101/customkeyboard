@@ -1,1 +1,15 @@
 
+$env:JAVA_HOME="C:\Users\Hieu Do\.jdks\corretto-17.0.15"
+$env:Path="$env:JAVA_HOME\bin;$env:Path"
+
+./gradlew assembleDebug  
+./gradlew installDevDebug
+
+adb shell input keyevent 66 
+
+adb shell monkey -p ru.playsoftware.j2meloader.debug -c android.intent.category.LAUNCHER 1
+adb push "C:\Users\Hieu Do\Downloads\SonTinh-ThuyTinh.jar" /sdcard/Download/
+
+& "C:/Users/Hieu Do/AppData/Local/Microsoft/WindowsApps/python3.13.exe" C:\emulator\serial_relay.py
+
+& "$env:USERPROFILE\.platformio\penv\Scripts\pio.exe" run -t upload
