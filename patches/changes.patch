@@ -1,0 +1,52 @@
+diff --git a/platformio.ini b/platformio.ini
+index 9b8bf8d..f1b622e 100644
+--- a/platformio.ini
++++ b/platformio.ini
+@@ -3,8 +3,10 @@ platform = espressif32
+ board = esp32-s3-devkitm-1
+ framework = arduino
+ board_build.flash_size = 4MB
+-upload_port = /dev/cu.usbmodem1101
+-monitor_port = /dev/cu.usbmodem1101
++upload_port = COM3
++upload_protocol = esptool
++upload_flags = --no-stub
++monitor_port = COM3
+ monitor_speed = 115200
+ 
+ board_build.partitions = default.csv
+diff --git a/src/main.cpp b/src/main.cpp
+index cb7c04e..2965509 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -153,6 +153,8 @@ void setupBLE()
+ }
+ 
+ bool lastState = HIGH;
++unsigned long lastPressTime = 0;
++const unsigned long DEBOUNCE_MS = 300;
+ 
+ void setup()
+ {
+@@ -167,12 +169,17 @@ void loop()
+ {
+   bool state = digitalRead(BTN_PIN);
+ 
+-  if (connected)
++  if (lastState == HIGH && state == LOW)
+   {
+-    if (lastState == HIGH && state == LOW)
++    unsigned long now = millis();
++    if (now - lastPressTime >= DEBOUNCE_MS)
+     {
+-      Serial.println("Send A");
+-      sendKey(0x04); // HID keycode for 'A'
++      lastPressTime = now;
++      Serial.println("Send OK (F1)");
++      if (connected)
++      {
++        sendKey(0x3A); // HID keycode for F1 ΓåÆ KEY_SOFT_LEFT (OK) in j2me-loader
++      }
+     }
+   }
+ 
